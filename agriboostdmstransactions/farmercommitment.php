@@ -58,7 +58,6 @@
                             <div class="card-body">
                                     <h4 class="card-title">Add Data</h4>
 
-                                
                                         <form class="p-3">
                                             <div class="m-0">
                                                 <div class="input-group">
@@ -66,14 +65,9 @@
                                                 </div>
                                             </div>
                                         </form>
-                                
-                                 
-                                        <div class="main-form">
-                                            
                                     
-
-                                            <h4 style='margin-top: 30px; font-size: 15px; color: royalblue;'>Commodities</h4>
-                                  
+                                        <div class="main-form">
+                                            <h4 style='margin-top: 30px; font-size: 15px; color: royalblue;'>Commodities</h4>                                  
                                             <form id="dateForm">
                                                 <div class="table-responsive">
                                                         <table id="myTable03a" style="width:100%;" class="display table table-bordered wrap">

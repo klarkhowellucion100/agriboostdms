@@ -205,7 +205,7 @@
     </div>
 </header>
 
-
+<?php $year_num = date('Y');?>
 
 <!-- ============================================================== -->
 <!-- Start right Content here -->
@@ -247,7 +247,11 @@
                                                             <div class="commo">
                                                                 <label for="year_filter">Year</label>
                                                                 <select id="year_filter" class="form-select">
+                                                                    <option value="<?php echo $year_num;?>"><?php echo $year_num;?></option>
                                                                     <option value="2023">2023</option>
+                                                                    <option value="2024">2024</option>
+                                                                    <option value="2025">2025</option>
+                                                                    <option value="2026">2026</option>
                                                                     <!-- Add more options as needed -->
                                                                 </select>    
                                                             </div>                                        
@@ -321,7 +325,7 @@
                         </div>
                         <!-- end col-->
 
-             
+          
 <!--########################################################################################### START DASHBOARD AJAX LINE ######################################################################-->
 <div id='dashboardfetchajaxlines'>
             <div class="row">
@@ -330,7 +334,7 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <h4 class="card-title">Processed Volume</h4>
+                                    <h4 class="card-title">Processed Volume <?php echo $year_num; ?></h4>
 
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-pills" role="tablist">
@@ -359,7 +363,7 @@
                                                         <?php
                                                             include 'agriboostdmstransactions/db.inc.php';
 
-                                                            $sql = "SELECT month_num, month_name, week_num, year_num, SUM(volume_processed) as total_volume FROM dashboard_tot_processed_volume GROUP BY week_num";
+                                                            $sql = "SELECT month_num, month_name, week_num, year_num, SUM(volume_processed) as total_volume FROM dashboard_tot_processed_volume WHERE year_num='$year_num' GROUP BY week_num";
                                                             $result = mysqli_query($conn, $sql);
 
                                                             $data_processed_volume = array();
@@ -433,7 +437,7 @@
                                                         <?php
                                                             include 'agriboostdmstransactions/db.inc.php';
 
-                                                            $sql001 = "SELECT month_num, month_name, week_num, year_num, AVG(volume_processed) as average_volume FROM dashboard_tot_processed_volume GROUP BY month_num";
+                                                            $sql001 = "SELECT month_num, month_name, week_num, year_num, AVG(volume_processed) as average_volume FROM dashboard_tot_processed_volume WHERE year_num='$year_num' GROUP BY month_num";
                                                             $result001 = mysqli_query($conn, $sql001);
 
                                                             $data_processed_volume001 = array();
@@ -534,7 +538,7 @@
                                                         <tbody>
                                                             <?php
                                                             include 'agriboostdmstransactions/db.inc.php';
-                                                            $query4 = mysqli_query($conn,"SELECT trans_adate, week_num, volume_processed FROM dashboard_tot_processed_volume");
+                                                            $query4 = mysqli_query($conn,"SELECT trans_adate, week_num, volume_processed FROM dashboard_tot_processed_volume WHERE year_num='$year_num'");
                                                             while($result4 = mysqli_fetch_array($query4)): ?>
                                                             <tr>
                                                                 <td style="text-align: center;"><?php echo $result4 ['week_num'];?></td>  
@@ -586,7 +590,7 @@
 
                                                 include 'agriboostdmstransactions/db.inc.php';
 
-                                                $sql001 = "SELECT * FROM order_commitment_actual_final";
+                                                $sql001 = "SELECT * FROM order_commitment_actual_final WHERE year_num='$year_num'";
                                                 $result001 = mysqli_query($conn, $sql001);
 
                                                 $order_commit_actual = array();
@@ -715,6 +719,8 @@
                                     $sql003 = "SELECT month_num, year_num, month_name,((SUM(rate_five) - (SUM(rate_one) + SUM(rate_two) + SUM(rate_three))) / SUM(total_rating)) * 100 AS percent_rating 
                                 FROM 
                                     farmer_nps 
+                                WHERE 
+                                    year_num='$year_num'
                                 GROUP BY 
                                     month_num, month_name, year_num
                                 ";
@@ -819,7 +825,9 @@
 
                                     $sql004 = "SELECT month_num,year_num,month_name,((SUM(rate_five) - (SUM(rate_one) + SUM(rate_two) + SUM(rate_three))) / SUM(total_rating)) * 100 AS percent_rating 
                                 FROM 
-                                    vendor_nps 
+                                    vendor_nps
+                                WHERE 
+                                    year_num='$year_num' 
                                 GROUP BY 
                                     month_num, year_num, month_name
                                 ";
@@ -918,7 +926,7 @@
                                <?php
                                     include 'agriboostdmstransactions/db.inc.php';
 
-                                    $sql005 = "SELECT year_num, month_num, month_name, COUNT(DISTINCT trans_partner) AS unique_partner_count FROM active_farmers_perdate GROUP BY month_num ORDER BY month_num, year_num,month_name;";
+                                    $sql005 = "SELECT year_num, month_num, month_name, COUNT(DISTINCT trans_partner) AS unique_partner_count FROM active_farmers_perdate WHERE year_num='$year_num' GROUP BY month_num ORDER BY month_num, year_num,month_name;";
                                     $result005 = mysqli_query($conn, $sql005);
 
                                     $active_farmers = array();
@@ -1011,7 +1019,7 @@
                                <?php
                                     include 'agriboostdmstransactions/db.inc.php';
 
-                                    $sql006 = "SELECT year_num, month_num, month_name, COUNT(DISTINCT trans_partner) AS unique_partner_count FROM active_vendors_perdate GROUP BY month_num ORDER BY month_num, year_num,month_name;";
+                                    $sql006 = "SELECT year_num, month_num, month_name, COUNT(DISTINCT trans_partner) AS unique_partner_count FROM active_vendors_perdate WHERE year_num='$year_num' GROUP BY month_num ORDER BY month_num, year_num,month_name;";
                                     $result006 = mysqli_query($conn, $sql006);
 
                                     $active_vendors = array();
@@ -1224,7 +1232,7 @@
                                <?php
                                     include 'agriboostdmstransactions/db.inc.php';
 
-                                    $sql008 = "SELECT year_num, month_num, month_name, agrihub_weighted_price, other_weighted_price, price_diff  FROM volume_weighed_price_permonth ORDER BY month_num, year_num;";
+                                    $sql008 = "SELECT year_num, month_num, month_name, agrihub_weighted_price, other_weighted_price, price_diff  FROM volume_weighed_price_permonth WHERE year_num='$year_num' ORDER BY month_num, year_num;";
                                     $result008 = mysqli_query($conn, $sql008);
 
                                     $weighed_volume = array();
@@ -1436,7 +1444,7 @@
 
                                     <?php
                                             include 'agriboostdmstransactions/db.inc.php';
-                                            $query = mysqli_query($conn, "SELECT week_num, month_num, year_num, month_name, SUM(volume_processed) FROM dashboard_tot_processed_volume");
+                                            $query = mysqli_query($conn, "SELECT week_num, month_num, year_num, month_name, SUM(volume_processed) FROM dashboard_tot_processed_volume WHERE year_num='$year_num'");
                                             while($result = mysqli_fetch_array($query)): ?>
                                                 <?php                                                            
                                                     $volume_processed = $result['SUM(volume_processed)'];                                                               
@@ -1460,7 +1468,7 @@
 
                                     <?php
                                             include 'agriboostdmstransactions/db.inc.php';
-                                            $query1 = mysqli_query($conn, "SELECT week_num, month_num, year_num, month_name, SUM(pay_subtotal_final) FROM dashboard_tot_processed_volume");
+                                            $query1 = mysqli_query($conn, "SELECT week_num, month_num, year_num, month_name, SUM(pay_subtotal_final) FROM dashboard_tot_processed_volume WHERE year_num='$year_num'");
                                             while($result1 = mysqli_fetch_array($query1)): ?>
                                                 <?php                                                            
                                                     $volume_released = $result1['SUM(pay_subtotal_final)'];                                                               
@@ -1483,7 +1491,7 @@
                                     </div>
                                     <?php
                                             include 'agriboostdmstransactions/db.inc.php';
-                                            $query2 = mysqli_query($conn, "SELECT COUNT(DISTINCT trans_partner) FROM farmers_engaged_tothubpos");
+                                            $query2 = mysqli_query($conn, "SELECT COUNT(DISTINCT trans_partner) FROM farmers_engaged_tothubpos WHERE year_num='$year_num'");
                                             while($result2 = mysqli_fetch_array($query2)): ?>
                                                 <?php                                                            
                                                     $farmers_engaged = $result2['COUNT(DISTINCT trans_partner)'];                                                               
@@ -1507,7 +1515,7 @@
                                     </div>
                                     <?php
                                             include 'agriboostdmstransactions/db.inc.php';
-                                            $query3 = mysqli_query($conn, "SELECT COUNT(DISTINCT trans_partner) FROM vendors_engaged_tothubpos");
+                                            $query3 = mysqli_query($conn, "SELECT COUNT(DISTINCT trans_partner) FROM vendors_engaged_tothubpos WHERE year_num='$year_num'");
                                             while($result3 = mysqli_fetch_array($query3)): ?>
                                                 <?php                                                            
                                                     $vendors_engaged = $result3['COUNT(DISTINCT trans_partner)'];                                                               

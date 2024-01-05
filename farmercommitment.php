@@ -531,16 +531,16 @@
                                                             <tbody id="myTable">
                                                                 <?php
                                                                 include 'agriboostdmstransactions/db.inc.php';
-                                                                $query1 = mysqli_query($conn,"SELECT * FROM commodityhubpos WHERE sellingtype='Farmgate' AND classcom='Class A' ORDER BY `type` ASC");
+                                                                $query1 = mysqli_query($conn,"SELECT * FROM comm_posnew ORDER BY `comm` ASC");
                                                                 while($result1 = mysqli_fetch_array($query1)): ?>
                                                                 <tr>
-                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_comm" name="trans_comm[]" value="<?php echo $result1 ['commodity']; ?>"></td> 
-                                                                    <td><?php echo $result1 ['commodity']; ?></td>    
-                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_type" name="trans_type[]" value="<?php echo $result1 ['type']; ?>"></td> 
-                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_sellingtype" name="trans_sellingtype[]" value="<?php echo $result1 ['sellingtype']; ?>"></td> 
-                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_class" name="trans_class[]" value="<?php echo $result1 ['classcom']; ?>"></td> 
-                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_price" name="trans_price[]" value="<?php echo $result1 ['price']; ?>"></td> 
-                                                                    <td><?php echo $result1 ['price']; ?></td> 
+                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_comm" name="trans_comm[]" value="<?php echo $result1 ['comm']; ?>"></td> 
+                                                                    <td><?php echo $result1 ['comm']; ?></td>    
+                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_type" name="trans_type[]" value="<?php echo $result1 ['comm_type']; ?>"></td> 
+                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_sellingtype" name="trans_sellingtype[]" value="Farmgate"></td> 
+                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_class" name="trans_class[]" value="Class A"></td> 
+                                                                    <td style="display:none;"><input type="text" readonly class="form-control" id="trans_price" name="trans_price[]" value="<?php echo $result1 ['comm_fgp']; ?>"></td> 
+                                                                    <td><?php echo $result1 ['comm_fgp']; ?></td> 
 
                                                                     <td style="display:none;"><input type="text" readonly class="form-control" id="trans_date" name="trans_date[]" value="<?php echo $date_f; ?>"></td> 
                                                                     <td><input type="number" class="form-control" id="trans_commitvol" name="trans_commitvol[]" placeholder="0"></td> 
