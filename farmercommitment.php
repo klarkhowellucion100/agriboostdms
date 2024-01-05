@@ -566,14 +566,7 @@
                                                         </table>
                                                  </div>
                                            
-                                            
-                                         
-                                               
-
-
                                                  <h4 style='margin-top: 30px; font-size: 15px; color: royalblue;'>Details</h4>
-
-                                              
 
                                                  <div class="row">
                                                 <div class="col-md-6">
